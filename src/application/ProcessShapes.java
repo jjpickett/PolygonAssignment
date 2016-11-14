@@ -15,25 +15,24 @@ public class ProcessShapes
 		BufferedReader reader;
 		try
 		{
-			reader = new BufferedReader(new FileReader("res/shapes"));
-			int size = Integer.parseInt(reader.readLine());
-			Polygon [] polygons = new Polygon[size];
-			for(int i=0; i<size ; i++)
+			reader = new BufferedReader(new FileReader("res/shapes.txt"));
+			String line = reader.readLine();	
+			String []tokens = line.split(" ");
+			
+			System.out.println(tokens[0]);
+			int add = 0;
+			Polygon [] polygons = new Polygon[Integer.parseInt(tokens[0])];
+			for(int i=1; i<tokens.length - 1; i++)
 			{
-				String line = reader.readLine();
-	
-				String []tokens = line.split(" ");
-				String className = "shapes."+ tokens[0];
+				String className = "shapes."+ tokens[i++];
 				
 				Class reflectClass = Class.forName(className);
-				
-				Class []parameterTypes = {Double.TYPE, Double.TYPE, Character.TYPE};
-				
-				Constructor constructor = reflectClass.getConstructor(parameterTypes);
-				Object []argsList = {new Double(tokens[1]), new Double(tokens[2]), new Character('V')};
+								
+				Constructor constructor = reflectClass.getConstructor(Double.class, Double.class);
+				Object []argsList = {new Double(tokens[i++]), new Double(tokens[i])};
 				Object o = constructor.newInstance(argsList);
-				polygons[i] = (Polygon)o;
-				System.out.println(className + " " + polygons[i]);
+				polygons[add++] = (Polygon)o;
+				System.out.println(className + " " + polygons[add - 1].getHeight());
 			}
 		} catch (FileNotFoundException e)
 		{
