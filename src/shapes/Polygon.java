@@ -8,7 +8,11 @@ public abstract class Polygon implements Comparable<Polygon>{
 	public double getHeight(){
 		return height;
 	}
-		
+	
+	public void setCompareType(char compareType){
+		this.compareType = compareType;
+	};
+	
 	public abstract double getBaseArea();
 	
 	public abstract double getBaseVolume();

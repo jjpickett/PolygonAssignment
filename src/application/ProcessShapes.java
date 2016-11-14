@@ -6,6 +6,7 @@ import java.lang.reflect.*;
 
 
 import shapes.Polygon;
+import sorting.Sorting;
 
 public class ProcessShapes
 {
@@ -31,9 +32,34 @@ public class ProcessShapes
 				Constructor constructor = reflectClass.getConstructor(Double.class, Double.class);
 				Object []argsList = {new Double(tokens[i++]), new Double(tokens[i])};
 				Object o = constructor.newInstance(argsList);
-				polygons[add++] = (Polygon)o;
-				System.out.println(className + " " + polygons[add - 1].getHeight());
+				Polygon temp = (Polygon)o;
+				
+				temp.setCompareType('v');
+				
+				polygons[add++] = temp;
+				System.out.println(className + " " + polygons[add - 1].getBaseVolume());
 			}
+			Sorting sort = new Sorting(polygons);
+			polygons = sort.quickSort();
+			
+			for(int i = 0; i < polygons.length; i++){
+				System.out.println(polygons[i].getClass() + " " + polygons[i].getBaseVolume() + " " + i);
+			}
+			System.out.println("done");
+			
+//			polygons = sort.bubbleSort(polygons);
+//			System.out.println(polygons[2000].getClass() + " " + polygons[2000].getHeight());
+//			polygons = sort.selectionSort(polygons);
+//			System.out.println(polygons[2000].getClass() + " " + polygons[2000].getHeight());
+			
+//			long startTime = System.nanoTime();
+//			polygons = sort.bubbleSort(polygons);
+//			long endTime = System.nanoTime();
+//			
+//			System.out.println("Bubble Sort Time: " + (endTime - startTime));
+//			System.out.println(polygons[0].getBaseVolume());
+//			System.out.println(polygons[1000].getBaseVolume());
+//			System.out.println(polygons[2000].getBaseVolume());
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block
@@ -71,6 +97,10 @@ public class ProcessShapes
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		
+		
 		
 
 	}

@@ -18,7 +18,7 @@ public class Pyramid extends Polygon {
 
 	@Override
 	public double getBaseVolume() {
-		return 1/3 * (getBaseArea() * height);
+		return  (getBaseArea() * height)/3;
 	}
 
 }
